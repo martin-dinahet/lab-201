@@ -20,12 +20,12 @@ export const login = async (_prevState: unknown, formData: FormData) => {
     return { errors: { email: ["Invalid email or password"] } };
   }
   await createSession(existingUser.id);
-  redirect("/dashboard");
+  redirect("/admin/dashboard");
 };
 
 export const logout = async (_prevState: unknown, _formData: FormData) => {
   await deleteSession();
-  redirect("/login");
+  redirect("/");
 };
 
 export const getCurrentUser = async () => {
