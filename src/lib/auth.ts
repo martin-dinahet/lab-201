@@ -23,7 +23,7 @@ export const login = async (_prevState: unknown, formData: FormData) => {
   redirect("/admin/dashboard");
 };
 
-export const logout = async (_prevState: unknown, _formData: FormData) => {
+export const logout = async () => {
   await deleteSession();
   redirect("/");
 };
