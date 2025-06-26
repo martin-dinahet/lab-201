@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
 const newDateSchema = z.object({
@@ -20,17 +21,19 @@ const updateDateSchema = z.object({
   soldOut: z.boolean().optional(),
 });
 
-export const newDate = async (formData: FormData) => {
+export const newDate = async (_prevState: unknown, formData: FormData) => {
   const result = newDateSchema.safeParse({
-    date: formData.get("date"),
+    date: formData.get("date") ? new Date(formData.get("date") as string) : undefined,
     city: formData.get("city"),
     country: formData.get("country"),
-    locations: formData.getAll("locations").length ? formData.getAll("locations") : undefined,
-    soldOut: formData.get("soldOut"),
+    locations: formData.getAll("locations").filter(Boolean) as string[],
+    soldOut: formData.get("soldOut") === "on",
   });
   if (!result.success) return { success: false, errors: result.error.flatten().fieldErrors };
   try {
     const date = await prisma.date.create({ data: result.data });
+    console.log(date);
+    revalidatePath("/admin/dashboard");
     return { success: true, data: date };
   } catch (error) {
     return { success: false, errors: { prisma: ["Failed to create date"] } };
@@ -53,6 +56,7 @@ export const updateDate = async (formData: FormData) => {
       where: { id: result.data.id },
       data: updateFields,
     });
+    revalidatePath("/admin/dashboard");
     return { success: true, data: updatedDate };
   } catch (error) {
     return { success: false, errors: { prisma: ["Failed to update date"] } };
