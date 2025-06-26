@@ -4,11 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { UpdateDateForm } from "./components/update-date-form";
 
 type Props = {
-  params: Params;
-};
-
-type Params = {
-  id: string;
+  params: Promise<{ id: string }>;
 };
 
 const UpdateDatePage: React.FC<Props> = async ({ params }) => {
