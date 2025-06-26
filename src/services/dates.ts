@@ -21,6 +21,10 @@ const updateDateSchema = z.object({
   soldOut: z.boolean().optional(),
 });
 
+const deleteDateSchema = z.object({
+  id: z.string(),
+});
+
 export const newDate = async (_prevState: unknown, formData: FormData) => {
   const result = newDateSchema.safeParse({
     date: formData.get("date") ? new Date(formData.get("date") as string) : undefined,
@@ -63,9 +67,12 @@ export const updateDate = async (formData: FormData) => {
   }
 };
 
-export const deleteDate = async (id: string) => {
+export const deleteDate = async (_prevState: unknown, formData: FormData) => {
+  const result = deleteDateSchema.safeParse({ id: formData.get("id") });
+  if (!result.success) return { success: false, errors: result.error.flatten().fieldErrors };
   try {
-    await prisma.date.delete({ where: { id } });
+    await prisma.date.delete({ where: { id: result.data.id } });
+    revalidatePath("/admin/dashboard");
     return { success: true };
   } catch (error) {
     return { success: false, errors: { prisma: ["Failed to delete date"] } };

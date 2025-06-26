@@ -1,6 +1,7 @@
 "use client";
 
 import { Date } from "@prisma/client";
+import { DateItem } from "./date-item";
 
 type Props = {
   dates: Date[];
@@ -8,19 +9,9 @@ type Props = {
 
 export const DatesList: React.FC<Props> = ({ dates }) => {
   return (
-    <ul>
+    <ul className="flex flex-wrap gap-2">
       {dates.map((date: Date) => (
-        <li key={date.id}>
-          <p>{date.date.toLocaleDateString()}</p>
-          <p>{date.city}</p>
-          <p>{date.country}</p>
-          <ul>
-            {date.locations.map((loc: string, i: number) => (
-              <li key={i}>{loc}</li>
-            ))}
-          </ul>
-          <p>{date.soldOut}</p>
-        </li>
+        <DateItem key={date.id} date={date} />
       ))}
     </ul>
   );
