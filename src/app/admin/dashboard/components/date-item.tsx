@@ -3,13 +3,14 @@
 import { Date } from "@prisma/client";
 import { deleteDate } from "@/services/dates";
 import { useActionState } from "react";
+import Link from "next/link";
 
 type Props = {
   date: Date;
 };
 
 export const DateItem: React.FC<Props> = ({ date }) => {
-  const [state, action, pending] = useActionState(deleteDate, undefined);
+  const [_state, action, pending] = useActionState(deleteDate, undefined);
 
   return (
     <li key={date.id} className="w-[20rem] border p-2">
@@ -24,15 +25,20 @@ export const DateItem: React.FC<Props> = ({ date }) => {
           Pays: <span className="font-semibold">{date.country}</span>
         </li>
         <li>
-          <p>Lieu</p>
+          <p>Lieux</p>
           <ul className="list-disc px-4">
             {date.locations.map((loc: string, i: number) => (
               <li key={i}>{loc}</li>
             ))}
           </ul>
         </li>
-        <p>{date.soldOut}</p>
-        <form action={action}>
+        <li>
+          <p>{date.soldOut ? "Sold Out" : "Places dispo"}</p>
+        </li>
+      </ul>
+
+      <div className="mt-4 flex gap-2">
+        <form action={action} className="w-full">
           <input type="hidden" value={date.id} name="id" id="id" />
           <button
             type="submit"
@@ -42,7 +48,10 @@ export const DateItem: React.FC<Props> = ({ date }) => {
             Delete
           </button>
         </form>
-      </ul>
+        <Link href={`/admin/dashboard/date/${date.id}`} className="w-full border p-2 text-center">
+          Update
+        </Link>
+      </div>
     </li>
   );
 };

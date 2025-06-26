@@ -14,7 +14,10 @@ const newDateSchema = z.object({
 
 const updateDateSchema = z.object({
   id: z.string(),
-  date: z.coerce.date().optional(),
+  date: z
+    .string()
+    .optional()
+    .transform((val) => (val ? new Date(val) : undefined)),
   city: z.string().optional(),
   country: z.string().optional(),
   locations: z.array(z.string()).optional(),
@@ -44,25 +47,35 @@ export const newDate = async (_prevState: unknown, formData: FormData) => {
   }
 };
 
-export const updateDate = async (formData: FormData) => {
+export const updateDate = async (_prevState: unknown, formData: FormData) => {
   const result = updateDateSchema.safeParse({
     id: formData.get("id"),
-    date: formData.get("date"),
-    city: formData.get("city"),
-    country: formData.get("country"),
-    locations: formData.get("locations"),
-    soldOut: formData.get("soldOut"),
+    date: formData.get("date") || undefined,
+    city: formData.get("city") || undefined,
+    country: formData.get("country") || undefined,
+    locations:
+      formData.getAll("locations").length > 0
+        ? formData.getAll("locations").map(String).filter(Boolean)
+        : undefined,
+    soldOut: formData.get("soldOut") === "on",
   });
-  if (!result.success) return { success: false, errors: result.error.flatten().fieldErrors };
+  if (!result.success) {
+    console.log("Validation errors:", result.error.flatten().fieldErrors);
+    return { success: false, errors: result.error.flatten().fieldErrors };
+  }
   try {
     const { id, ...updateFields } = result.data;
+    const cleanUpdateFields = Object.fromEntries(
+      Object.entries(updateFields).filter(([_, value]) => value !== undefined),
+    );
     const updatedDate = await prisma.date.update({
-      where: { id: result.data.id },
-      data: updateFields,
+      where: { id },
+      data: cleanUpdateFields,
     });
     revalidatePath("/admin/dashboard");
     return { success: true, data: updatedDate };
   } catch (error) {
+    console.error("Database error:", error);
     return { success: false, errors: { prisma: ["Failed to update date"] } };
   }
 };
