@@ -2,35 +2,50 @@
 
 import { useActionState } from "react";
 import { login } from "@/lib/auth";
+import { Card } from "@/components/ui/card";
+import { CardFooter } from "@/components/ui/card";
+import { CardHeader } from "@/components/ui/card";
+import { CardTitle } from "@/components/ui/card";
+import { CardDescription } from "@/components/ui/card";
+import { CardContent } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const LoginPage: React.FC = () => {
   const [state, action, pending] = useActionState(login, undefined);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
-      <form action={action} className="w-[20rem] space-y-2 border p-2">
-        <div className="flex flex-col gap-1">
-          <label htmlFor="email" className="text-sm">
-            Email
-          </label>
-          <input type="email" id="email" name="email" className="border p-1" />
-          {state?.errors?.email && <p className="text-red-500">{state.errors.email}</p>}
-        </div>
-        <div className="flex flex-col gap-1">
-          <label htmlFor="password" className="text-sm">
-            Password
-          </label>
-          <input type="password" id="password" name="password" className="border p-1" />
-          {state?.errors?.password && <p className="text-red-500">{state.errors.password}</p>}
-        </div>
-        <button
-          type="submit"
-          disabled={pending}
-          className="mt-2 w-full border p-2 disabled:bg-gray-200"
-        >
-          Log In
-        </button>
-      </form>
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Connexion</CardTitle>
+          <CardDescription>Bienvenue sur le portail administrateur</CardDescription>
+        </CardHeader>
+        <form action={action}>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input type="email" id="email" name="email" placeholder="admin@mail.com" required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Mot de passe</Label>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="password123"
+                required
+              />
+            </div>
+          </CardContent>
+          <CardFooter className="pt-6">
+            <Button type="submit" disabled={pending} className="w-full">
+              {pending ? "Chargement..." : "Connexion"}
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </div>
   );
 };
