@@ -18,7 +18,7 @@ export const NewsItem: React.FC<Props> = ({ news }) => {
   const [_state, action, pending] = useActionState(deleteNews, undefined);
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden p-6">
       <div className="flex flex-col sm:flex-row">
         <div className="relative h-32 w-full sm:h-auto sm:w-48">
           <Image
@@ -26,7 +26,7 @@ export const NewsItem: React.FC<Props> = ({ news }) => {
             alt={news.title}
             fill
             unoptimized
-            className="object-cover"
+            className="rounded-lg object-cover"
           />
         </div>
 
