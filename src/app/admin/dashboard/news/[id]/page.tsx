@@ -10,14 +10,15 @@ import Link from "next/link";
 import Image from "next/image";
 
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 const NewsDetailPage: React.FC<Props> = async ({ params }) => {
+  const { id } = await params;
   const news = await prisma.news.findUnique({
-    where: { id: params.id },
+    where: { id },
   });
 
   if (!news) {
