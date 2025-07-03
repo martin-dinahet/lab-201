@@ -24,7 +24,7 @@ export const UpdateNewsForm: FC<Props> = ({ news }) => {
 
   useEffect(() => {
     if (state?.success) {
-      router.push("/dashboard");
+      router.push("/admin/dashboard");
     }
   }, [state?.success, router]);
 
