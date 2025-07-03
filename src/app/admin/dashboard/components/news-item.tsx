@@ -18,16 +18,10 @@ export const NewsItem: React.FC<Props> = ({ news }) => {
   const [_state, action, pending] = useActionState(deleteNews, undefined);
 
   return (
-    <Card className="overflow-hidden">
-      <div className="flex flex-col sm:flex-row">
+    <Card className="overflow-hidden py-2">
+      <div className="flex flex-col p-4 sm:flex-row">
         <div className="relative h-32 w-full sm:h-auto sm:w-48">
-          <Image
-            src={news.imgUrl || "/placeholder.svg?height=128&width=192"}
-            alt={news.title}
-            fill
-            unoptimized
-            className="object-cover"
-          />
+          <Image src={news.imgUrl} alt={news.title} fill unoptimized />
         </div>
 
         <div className="flex flex-1 flex-col">
