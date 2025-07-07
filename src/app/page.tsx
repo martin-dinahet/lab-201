@@ -32,6 +32,49 @@ const HomePage: React.FC = async () => {
           style={{ animationDuration: "6s" }}
         />
       </section>
+      <section className="font-darknet mt-[10rem] flex w-full flex-nowrap justify-center gap-64 px-20 text-xl text-white">
+        {/* Left column: Title left, number right */}
+        <div className="w-[22rem] space-y-2">
+          {[
+            "DIEU MERCI",
+            "REGULATION",
+            "LETHARGIE",
+            "PANDEMONIUM",
+            "FLPVCOF",
+            "GAUCHE DROITE",
+            "ROCHE NOIRE",
+            "DARKNET",
+            "FUMEE",
+            "QUE DES PROBLEMES",
+          ].map((track, i) => (
+            <p key={i} className="flex gap-2">
+              <span>{track}</span>
+              <span className="font-felipa text-white/60">{String(i + 1).padStart(2, "0")}</span>
+            </p>
+          ))}
+        </div>
+
+        {/* Right column: Number left, title right */}
+        <div className="w-[22rem] space-y-2">
+          {[
+            "UFOV",
+            "SUPERMAN",
+            "PROZACZOPIXAN",
+            "INTERLUDE",
+            "93 MILLIARDS",
+            "LES ECHAPPES",
+            "PARADIS PERDU",
+            "PTSD",
+            "VICTOIRE",
+            "DEMON",
+          ].map((track, i) => (
+            <p key={i} className="flex justify-end gap-2">
+              <span className="font-felipa text-white/60">{String(i + 11).padStart(2, "0")}</span>
+              <span className="text-right">{track}</span>
+            </p>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };
