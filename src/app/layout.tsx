@@ -1,3 +1,7 @@
+import { darkNetWarrior } from "@/fonts/dark-net-warrior";
+import { felipa } from "@/fonts/felipa";
+import { FC, PropsWithChildren } from "react";
+
 import "@/globals.css";
 
 export const metadata = {
@@ -5,13 +9,9 @@ export const metadata = {
   description: "Made with <3 by Martin Dinahet",
 };
 
-type Props = {
-  children: React.ReactNode;
-};
-
-const RootLayout: React.FC<Props> = ({ children }) => {
+const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="en">
+    <html lang="en" className={`${felipa.variable} ${darkNetWarrior.variable}`}>
       <body className="antialiased">
         <main>{children}</main>
       </body>
