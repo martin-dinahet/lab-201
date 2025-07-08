@@ -3,6 +3,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes breatheBrightness {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.85);
+  }
+}
+
+.breathe-brightness {
+  animation: breatheBrightness 4s ease-in-out infinite;
+}
+
 @theme inline {
   --font-felipa: var(--font-felipa);
   --font-darknet: var(--font-darknet);
