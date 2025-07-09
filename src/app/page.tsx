@@ -126,7 +126,7 @@ const HomePage: React.FC = async () => {
             </AccordionItem>
           ))}
         </Accordion>
-        <h2 className="font-darknet text-lg">ET D'AUTRES A VENIR...</h2>
+        <h2 className="font-darknet text-lg">ET D&apos;AUTRES A VENIR...</h2>
       </section>
       <section
         id="merch"

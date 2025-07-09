@@ -35,7 +35,7 @@ export const Countdown: FC = () => {
         {time.days} : {formatTime(time.hours)} : {formatTime(time.minutes)} :{" "}
         {formatTime(time.seconds)}
       </p>
-      <p className="font-darknet">AVANT L'OUVERTURE DE LA PORTE...</p>
+      <p className="font-darknet">AVANT L&apos;OUVERTURE DE LA PORTE...</p>
     </div>
   );
 };
