@@ -1,6 +1,5 @@
 "use server";
 
-import Link from "next/link";
 import Image from "next/image";
 import { Countdown } from "@/components/countdown";
 import { prisma } from "@/lib/prisma";
@@ -10,7 +9,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { InstagramIcon, Music2Icon, TwitterIcon, YoutubeIcon } from "lucide-react";
+import { InstagramIcon, Music2Icon, TwitterIcon, X, YoutubeIcon } from "lucide-react";
+import { Header } from "./components/header";
 
 const HomePage: React.FC = async () => {
   const dates = await prisma.date.findMany();
@@ -20,22 +20,14 @@ const HomePage: React.FC = async () => {
     <div className="breathe-brightness min-h-screen w-screen bg-black text-white">
       {/* Top section with background image */}
       <div className="relative w-full bg-[url(/image-fond.png)] bg-cover">
-        <header className="w-full p-8">
-          <div className="font-felipa flex items-center justify-evenly text-2xl text-white">
-            <Link href="#">Accueil</Link>
-            <Link href="#">Album</Link>
-            <Link href="#">
-              <Image src="/logo.svg" alt="PDM Logo" height={200} width={200} />
-            </Link>
-            <Link href="#">Évènement</Link>
-            <Link href="#">Blog</Link>
-          </div>
-        </header>
-
+        <Header />
         <section className="mt-[15rem] mb-[25rem] flex w-full justify-center">
           <Countdown />
         </section>
-        <section className="mt-[5rem] flex w-full flex-col items-center justify-center gap-10 px-4 md:flex-row md:gap-20">
+        <section
+          id="album"
+          className="mt-[5rem] flex w-full flex-col items-center justify-center gap-10 px-4 md:flex-row md:gap-20"
+        >
           <Image
             src="/boite-cd.png"
             alt="boite cd"
@@ -96,7 +88,10 @@ const HomePage: React.FC = async () => {
         </section>
         <div className="pointer-events-none absolute bottom-0 left-0 h-48 w-full bg-gradient-to-b from-transparent to-black" />
       </div>
-      <section className="mt-[15rem] flex w-full flex-col items-center gap-10 px-4 text-white">
+      <section
+        id="events"
+        className="mt-[15rem] flex w-full flex-col items-center gap-10 px-4 text-white"
+      >
         <h2 className="font-darknet text-3xl text-white">DATES / EVENEMENTS</h2>
         <Accordion type="single" collapsible className="w-full max-w-2xl">
           {dates.map((date) => (
@@ -133,7 +128,10 @@ const HomePage: React.FC = async () => {
         </Accordion>
         <h2 className="font-darknet text-lg">ET D'AUTRES A VENIR...</h2>
       </section>
-      <section className="relative flex w-full flex-col items-center overflow-hidden px-4 pt-[10rem] text-white md:pt-[15rem]">
+      <section
+        id="merch"
+        className="relative flex w-full flex-col items-center overflow-hidden px-4 pt-[10rem] text-white md:pt-[15rem]"
+      >
         {/* Gradient Overlay */}
         <div className="pointer-events-none absolute top-0 left-0 z-20 h-32 w-full bg-gradient-to-b from-black to-transparent" />
 
@@ -196,7 +194,7 @@ const HomePage: React.FC = async () => {
         </div>
       </section>
       <div className="relative w-full bg-[url(/image-fond-2.png)] bg-cover">
-        <section className="w-full px-4 pt-[10rem] pb-[10rem] text-white">
+        <section id="news" className="w-full px-4 pt-[10rem] pb-[10rem] text-white">
           <h2 className="font-darknet pb-20 text-center text-2xl">NEWS</h2>
           <div className="mx-auto flex max-w-7xl justify-center">
             <div className="flex flex-wrap justify-center gap-10">

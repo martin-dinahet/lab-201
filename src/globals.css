@@ -17,6 +17,10 @@
   animation: breatheBrightness 4s ease-in-out infinite;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --font-felipa: var(--font-felipa);
   --font-darknet: var(--font-darknet);
