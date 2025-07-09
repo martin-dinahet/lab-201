@@ -5,8 +5,8 @@ import { FC, PropsWithChildren } from "react";
 import "@/globals.css";
 
 export const metadata = {
-  title: "Fullstack App Quickstart",
-  description: "Made with <3 by Martin Dinahet",
+  title: "PANDEMONIUM",
+  description: "Nouvel album de VALD",
 };
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
