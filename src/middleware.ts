@@ -11,7 +11,7 @@ const middleware = async (request: NextRequest) => {
   const isLoggedIn = !!session?.userId;
 
   if (isProtectedRoute && !isLoggedIn) {
-    return NextResponse.redirect(new URL("/", request.nextUrl));
+    return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
   }
   return NextResponse.next();
 };
