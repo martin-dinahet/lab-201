@@ -3,6 +3,29 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@keyframes breatheBrightness {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.85);
+  }
+}
+
+.breathe-brightness {
+  animation: breatheBrightness 4s ease-in-out infinite;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@theme inline {
+  --font-felipa: var(--font-felipa);
+  --font-darknet: var(--font-darknet);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

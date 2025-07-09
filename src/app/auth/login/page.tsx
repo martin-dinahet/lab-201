@@ -19,8 +19,8 @@ const LoginPage: React.FC = () => {
     <div className="flex h-screen w-screen items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Connexion</CardTitle>
-          <CardDescription>Bienvenue sur le portail administrateur</CardDescription>
+          <CardTitle>Login</CardTitle>
+          <CardDescription>Welcome to the admin gate</CardDescription>
         </CardHeader>
         <form action={action}>
           <CardContent className="space-y-4">
@@ -29,7 +29,7 @@ const LoginPage: React.FC = () => {
               <Input type="email" id="email" name="email" placeholder="admin@mail.com" required />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Mot de passe</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 type="password"
                 id="password"
@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
           </CardContent>
           <CardFooter className="pt-6">
             <Button type="submit" disabled={pending} className="w-full">
-              {pending ? "Chargement..." : "Connexion"}
+              {pending ? "Loading..." : "Log In"}
             </Button>
           </CardFooter>
         </form>
